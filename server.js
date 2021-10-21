@@ -3,7 +3,7 @@
 require('dotenv').config();
 //pull PORT and give default val of 4000
 //ASK
-const { PORT = 4000, MONGODB_URL } = process.env;
+const { PORT, MONGODB_URL } = process.env;
 const express = require('express');
 const app = express(); // create app obj
 const mongoose = require('mongoose');
@@ -20,10 +20,13 @@ mongoose.connect(MONGODB_URL, {
 
 /////MODELS
 const WordSchema = new mongoose.Schema({
-    word: String
+    noun: String,
+    adjective: String,
+    verb: String,
+    number: String
 });
 
-const Word = mongoose.model('Word', WordSchema);
+const Words = mongoose.model('Word', WordSchema);
 
 /////MIDDLEWARE
 app.use(cors()); // prevent cors errors, open access to all origins
@@ -44,13 +47,23 @@ app.get('/', (req, res) => {
 });
 
 //Story
-app.get('/story', (req, res) => {
-    res.send('Story Page')
+app.get('/story', async (req, res) => {
+    try {
+        //send all words
+        res.json(await WordSchema.find({}));
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
 //Create
-app.post('/story', (req, res) => {
-    res.send('Create Story Page');
+app.post('/story', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.create(req.body));
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
 //Option1
@@ -64,8 +77,13 @@ app.get('/story/option2', (req, res) => {
 });
 
 //Delete
-app.delete('/story/:idx', (req, res) => {
-    res.send('This will be my delete route');
+app.delete('/story/:idx', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.findByIdAndRemove({}))
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
 /////LISTENER
