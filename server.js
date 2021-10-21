@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 app.get('/story', async (req, res) => {
     try {
         //send all words
-        res.json(await WordSchema.find({}));
+        res.json(await Words.find({}));
     } catch (error) {
         res.status(400).json(error);
     }
