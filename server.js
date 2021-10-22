@@ -46,9 +46,9 @@ app.get('/', (req, res) => {
     res.send('Home page');
 });
 
-//About SHOW
+//About
 app.get('/about', (req, res) => {
-        res.json(about)
+        res.json(about);
 });
 
 //Story
