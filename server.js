@@ -41,9 +41,14 @@ mongoose.connection
 
 
 /////ROUTES
-// Home
+//Home
 app.get('/', (req, res) => {
     res.send('Home page');
+});
+
+//About SHOW
+app.get('/about', (req, res) => {
+        res.json(about)
 });
 
 //Story
