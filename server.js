@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 //imp middleware
 const cors = require('cors');
 const morgan = require('morgan');
+const about = require('./about.json')
 
 /////DATABASE CONNECTION
 //ASK
