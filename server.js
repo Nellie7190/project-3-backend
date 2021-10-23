@@ -24,7 +24,8 @@ const WordSchema = new mongoose.Schema({
     noun: String,
     adjective: String,
     verb: String,
-    number: String
+    number: String,
+    created: Boolean
 });
 
 const Words = mongoose.model('Word', WordSchema);
@@ -65,6 +66,7 @@ app.get('/story', async (req, res) => {
 //Create
 app.post('/story', async (req, res) => {
     try {
+        Words.deleteMany({created: true})
         //send all words
         res.json(await Words.create(req.body));
     } catch (error) {
