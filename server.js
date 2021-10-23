@@ -83,10 +83,10 @@ app.get('/story/option2', (req, res) => {
 });
 
 //Delete
-app.delete('/story/:idx', async (req, res) => {
+app.delete('/story', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.findByIdAndRemove({}))
+        res.json(await Words.findOneAndDelete());
     } catch (error) {
         res.status(400).json(error);
     }
