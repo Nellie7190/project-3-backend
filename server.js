@@ -8,7 +8,7 @@ const express = require('express');
 const app = express(); // create app obj
 const mongoose = require('mongoose');
 //imp middleware
-const cors = require('cors');
+// const cors = require('cors');
 const morgan = require('morgan');
 const about = require('./about.json')
 
@@ -31,7 +31,7 @@ const WordSchema = new mongoose.Schema({
 const Words = mongoose.model('Word', WordSchema);
 
 /////MIDDLEWARE
-app.use(cors()); // prevent cors errors, open access to all origins
+// app.use(cors()); // prevent cors errors, open access to all origins
 app.use(morgan('dev')); //logging
 app.use(express.json()); //parse json bodies
 
