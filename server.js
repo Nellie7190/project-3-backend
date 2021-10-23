@@ -25,7 +25,7 @@ const WordSchema = new mongoose.Schema({
     adjective: String,
     verb: String,
     number: String,
-    created: Boolean
+    created: {Boolean, default: true}
 });
 
 const Words = mongoose.model('Word', WordSchema);
