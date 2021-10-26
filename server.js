@@ -21,6 +21,25 @@ mongoose.connect(MONGODB_URL, {
 
 /////MODELS
 const WordSchema = new mongoose.Schema({
+    name: String,
+    noun: String,
+    adjective: String,
+    verb: String,
+    number: String,
+    created: Boolean
+});
+
+const FairytaleSchema = new mongoose.Schema({
+    name: String,
+    noun: String,
+    adjective: String,
+    verb: String,
+    number: String,
+    created: Boolean
+});
+
+const ScarySchema = new mongoose.Schema({
+    name: String,
     noun: String,
     adjective: String,
     verb: String,
@@ -29,6 +48,8 @@ const WordSchema = new mongoose.Schema({
 });
 
 const Words = mongoose.model('Word', WordSchema);
+const Fairytale = mongoose.model('Fairytale', FairytaleSchema);
+const Scary = mongoose.model('Scary', ScarySchema);
 
 /////MIDDLEWARE
 app.use(cors()); // prevent cors errors, open access to all origins
@@ -67,7 +88,7 @@ app.get('/story', async (req, res) => {
 app.get('/fairytale', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.find({}));
+        res.json(await Fairytale.find({}));
     } catch (error) {
         res.status(400).json(error);
     }
@@ -77,7 +98,7 @@ app.get('/fairytale', async (req, res) => {
 app.get('/scary', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.find({}));
+        res.json(await Scary.find({}));
     } catch (error) {
         res.status(400).json(error);
     }
@@ -97,9 +118,9 @@ app.post('/story', async (req, res) => {
 //Create
 app.post('/fairytale', async (req, res) => {
     try {
-        Words.deleteMany({created: true})
+        Fairytale.deleteMany({created: true})
         //send all words
-        res.json(await Words.create(req.body));
+        res.json(await Fairytale.create(req.body));
     } catch (error) {
         res.status(400).json(error);
     }
@@ -108,9 +129,9 @@ app.post('/fairytale', async (req, res) => {
 //Create
 app.post('/scary', async (req, res) => {
     try {
-        Words.deleteMany({created: true})
+        Scary.deleteMany({created: true})
         //send all words
-        res.json(await Words.create(req.body));
+        res.json(await Scary.create(req.body));
     } catch (error) {
         res.status(400).json(error);
     }
@@ -130,7 +151,7 @@ app.delete('/story', async (req, res) => {
 app.delete('/fairytale', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.deleteMany());
+        res.json(await Fairytale.deleteMany());
     } catch (error) {
         res.status(400).json(error);
     }
@@ -140,7 +161,7 @@ app.delete('/fairytale', async (req, res) => {
 app.delete('/scary', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.deleteMany());
+        res.json(await Scary.deleteMany());
     } catch (error) {
         res.status(400).json(error);
     }
