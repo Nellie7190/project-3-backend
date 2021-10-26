@@ -43,18 +43,38 @@ mongoose.connection
 
 
 /////ROUTES
-//Home
-app.get('/', (req, res) => {
-    res.send('Home page');
-});
+// //Home
+// app.get('/', (req, res) => {
+//     res.send('Home page');
+// });
 
 //About
 app.get('/about', (req, res) => {
         res.json(about);
 });
 
-//Story
+//Coding Story
 app.get('/story', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.find({}));
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+//Fairytale Story
+app.get('/fairytale', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.find({}));
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+//Scary Story
+app.get('/scary', async (req, res) => {
     try {
         //send all words
         res.json(await Words.find({}));
@@ -74,21 +94,53 @@ app.post('/story', async (req, res) => {
     }
 });
 
-//Option1
-app.get('/story/option1', (req, res) => {
-    res.send('This is Where You Go When Choosing Option 1');
+//Create
+app.post('/fairytale', async (req, res) => {
+    try {
+        Words.deleteMany({created: true})
+        //send all words
+        res.json(await Words.create(req.body));
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
-//Option2
-app.get('/story/option2', (req, res) => {
-    res.send('This is Where You Go When Choosing Option 2');
+//Create
+app.post('/scary', async (req, res) => {
+    try {
+        Words.deleteMany({created: true})
+        //send all words
+        res.json(await Words.create(req.body));
+    } catch (error) {
+        res.status(400).json(error);
+    }
 });
 
 //Delete
 app.delete('/story', async (req, res) => {
     try {
         //send all words
-        res.json(await Words.findOneAndDelete());
+        res.json(await Words.deleteMany());
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+//Delete
+app.delete('/fairytale', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.deleteMany());
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+//Delete
+app.delete('/scary', async (req, res) => {
+    try {
+        //send all words
+        res.json(await Words.deleteMany());
     } catch (error) {
         res.status(400).json(error);
     }
